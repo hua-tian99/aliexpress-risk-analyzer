@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Local settings (Claude Code, IDE, OS)
+.claude/
+.idea/
+.vscode/
+Thumbs.db
+
+# Runtime data (auto-created)
+image_cache/
+uploads/
+input/
+output/
+
+# Build artifacts
+dist/
+build/
+*.spec.bak
+
+# Logs / env
+*.log
+.DS_Store
+.env*
+!.env.example

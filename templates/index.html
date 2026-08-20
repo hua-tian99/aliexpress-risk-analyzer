@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>速卖通产品违规风险分析</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 头部 -->
+        <header class="app-header">
+            <h1>🛡️ 速卖通在线产品违规风险分析</h1>
+            <p class="subtitle">基于店小秘导出的Excel，自动检测违禁词、联系方式泄露、HTML隐藏信息、品牌侵权、搜索作弊、图片内容</p>
+        </header>
+
+        <!-- 步骤指示器 -->
+        <div class="step-indicator">
+            <div class="step active" data-step="1">
+                <div class="step-circle">1</div>
+                <div class="step-label">上传Excel</div>
+            </div>
+            <div class="step-line"></div>
+            <div class="step" data-step="2">
+                <div class="step-circle">2</div>
+                <div class="step-label">选择维度</div>
+            </div>
+            <div class="step-line"></div>
+            <div class="step" data-step="3">
+                <div class="step-circle">3</div>
+                <div class="step-label">执行分析</div>
+            </div>
+            <div class="step-line"></div>
+            <div class="step" data-step="4">
+                <div class="step-circle">4</div>
+                <div class="step-label">审核结果</div>
+            </div>
+        </div>
+
+        <!-- 步骤1: 上传 -->
+        <div class="section" id="step1-section">
+            <div class="section-header">
+                <h2>📂 第一步：上传店小秘导出的Excel文件</h2>
+                <p>仅支持 .xlsx / .xls 格式，建议不超过50MB</p>
+            </div>
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">📄</div>
+                <p class="upload-text">拖拽文件到此处，或点击选择文件</p>
+                <p class="upload-hint">速卖通在线产品Excel（约43列）</p>
+                <input type="file" id="fileInput" accept=".xlsx,.xls" hidden>
+                <button class="btn btn-primary" id="selectFileBtn">选择文件</button>
+            </div>
+            <div class="upload-preview" id="uploadPreview" style="display:none;">
+                <div class="preview-info">
+                    <span class="file-name" id="fileName"></span>
+                    <span class="file-count" id="fileCount"></span>
+                </div>
+                <button class="btn btn-outline" id="changeFileBtn">重新选择</button>
+            </div>
+        </div>
+
+        <!-- 步骤2: 选择检测维度 -->
+        <div class="section" id="step2-section" style="display:none;">
+            <div class="section-header">
+                <h2>🎯 第二步：选择检测维度</h2>
+                <p>选择需要分析的违规类型，全选将运行所有检测器</p>
+            </div>
+            <div class="detector-grid">
+                <label class="detector-card selected" data-key="text_prohibited">
+                    <input type="checkbox" checked hidden>
+                    <div class="detector-icon">🚫</div>
+                    <div class="detector-name">违禁关键词</div>
+                    <div class="detector-desc">标题/描述/属性中的10大类违禁词</div>
+                </label>
+                <label class="detector-card selected" data-key="contact_leak">
+                    <input type="checkbox" checked hidden>
+                    <div class="detector-icon">📞</div>
+                    <div class="detector-name">联系方式泄露</div>
+                    <div class="detector-desc">微信/QQ/邮箱/手机号等联系方式检测</div>
+                </label>
+                <label class="detector-card selected" data-key="html_structure">
+                    <input type="checkbox" checked hidden>
+                    <div class="detector-icon">🔍</div>
+                    <div class="detector-name">HTML结构分析</div>
+                    <div class="detector-desc">隐藏信息/外部链接/描述与属性不一致</div>
+                </label>
+                <label class="detector-card selected" data-key="brand_check">
+                    <input type="checkbox" checked hidden>
+                    <div class="detector-icon">®️</div>
+                    <div class="detector-name">品牌侵权</div>
+                    <div class="detector-desc">千问AI全量扫描标题中的品牌名并判断侵权</div>
+                </label>
+                <label class="detector-card selected" data-key="search_cheating">
+                    <input type="checkbox" checked hidden>
+                    <div class="detector-icon">🔎</div>
+                    <div class="detector-name">搜索作弊</div>
+                    <div class="detector-desc">标题堆砌/标题超长/SKU作弊/价格异常</div>
+                </label>
+                <label class="detector-card selected" data-key="image_analysis">
+                    <input type="checkbox" checked hidden>
+                    <div class="detector-icon">🖼️</div>
+                    <div class="detector-name">图片内容分析</div>
+                    <div class="detector-desc">千问视觉AI检测图片中的品牌/水印/违禁品</div>
+                </label>
+                <label class="detector-card selected" data-key="category_mismatch">
+                    <input type="checkbox" checked hidden>
+                    <div class="detector-icon">📂</div>
+                    <div class="detector-name">类目错放</div>
+                    <div class="detector-desc">AI判断产品实际类目是否与所选类目一致</div>
+                </label>
+                <label class="detector-card selected" data-key="fda_claims">
+                    <input type="checkbox" checked hidden>
+                    <div class="detector-icon">💊</div>
+                    <div class="detector-name">FDA非法宣称</div>
+                    <div class="detector-desc">虚假FDA认证/医疗功效/保健品夸大宣称检测</div>
+                </label>
+            </div>
+            <div class="actions">
+                <button class="btn btn-primary btn-lg" id="startAnalysisBtn">🚀 开始分析</button>
+            </div>
+        </div>
+
+        <!-- 步骤3: 进度 -->
+        <div class="section" id="step3-section" style="display:none;">
+            <div class="section-header">
+                <h2>⏳ 第三步：分析进行中</h2>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progressBar" style="width:0%"></div>
+                </div>
+                <p class="progress-text" id="progressText">正在分析...请稍候</p>
+            </div>
+        </div>
+
+        <!-- 步骤4: 结果 -->
+        <div class="section" id="step4-section" style="display:none;">
+            <div class="section-header">
+                <h2>📊 第四步：分析结果</h2>
+            </div>
+
+            <!-- 统计卡片 -->
+            <div class="stats-row" id="statsRow">
+                <div class="stat-card stat-total">
+                    <span class="stat-number" id="statTotal">0</span>
+                    <span class="stat-label">总产品数</span>
+                </div>
+                <div class="stat-card stat-high">
+                    <span class="stat-number" id="statHigh">0</span>
+                    <span class="stat-label">高风险</span>
+                </div>
+                <div class="stat-card stat-medium">
+                    <span class="stat-number" id="statMedium">0</span>
+                    <span class="stat-label">中风险</span>
+                </div>
+                <div class="stat-card stat-low">
+                    <span class="stat-number" id="statLow">0</span>
+                    <span class="stat-label">低风险</span>
+                </div>
+            </div>
+
+            <!-- 违规类别统计 -->
+            <div class="category-stats" id="categoryStats" style="display:none;">
+                <h3>违规类别统计</h3>
+                <div class="category-chips" id="categoryChips"></div>
+            </div>
+
+            <!-- 操作按钮 -->
+            <div class="result-actions">
+                <div class="filter-group">
+                    <label>筛选风险等级：</label>
+                    <select class="filter-select" id="riskFilter">
+                        <option value="全部">全部</option>
+                        <option value="高">高风险</option>
+                        <option value="中">中风险</option>
+                        <option value="低">低风险</option>
+                    </select>
+                </div>
+                <button class="btn btn-success" id="exportBtn">📥 导出Excel</button>
+            </div>
+
+            <!-- 规则溯源 -->
+            <div class="rule-index-info">
+                <details>
+                    <summary>📖 检测规则溯源（点击展开）</summary>
+                    <div id="ruleIndexContent">
+                        <p>正在加载规则索引...</p>
+                    </div>
+                </details>
+            </div>
+
+            <!-- 结果表格 -->
+            <div class="table-container">
+                <table class="result-table" id="resultTable">
+                    <thead>
+                        <tr>
+                            <th>店小秘产品ID</th>
+                            <th>产品名称</th>
+                            <th>主图</th>
+                            <th>所属店铺</th>
+                            <th>风险评级</th>
+                            <th>违规维度</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="resultBody">
+                        <tr><td colspan="7" class="empty-row">暂无数据</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 分页 -->
+            <div class="pagination" id="pagination">
+                <button class="btn btn-sm" id="prevPageBtn">上一页</button>
+                <span id="pageInfo">第 1 页</span>
+                <button class="btn btn-sm" id="nextPageBtn">下一页</button>
+            </div>
+        </div>
+
+        <!-- 产品详情弹窗 -->
+        <div class="modal-overlay" id="detailModal" style="display:none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="detailTitle">产品详情</h2>
+                    <button class="modal-close" id="detailCloseBtn">&times;</button>
+                </div>
+                <div class="modal-body" id="detailBody">
+                    <div id="detailLoading">加载中...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

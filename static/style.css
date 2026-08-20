@@ -1,0 +1,682 @@
+/* 速卖通风险分析 — 样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 头部 */
+.app-header {
+    text-align: center;
+    padding: 30px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 12px;
+    margin-bottom: 30px;
+}
+
+.app-header h1 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.app-header .subtitle {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+/* 步骤指示器 */
+.step-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 30px 0;
+    padding: 0 20px;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.step-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #ddd;
+    color: #999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.step.active .step-circle {
+    background: #667eea;
+    color: white;
+}
+
+.step.done .step-circle {
+    background: #52c41a;
+    color: white;
+}
+
+.step-label {
+    font-size: 12px;
+    color: #999;
+}
+
+.step.active .step-label {
+    color: #667eea;
+    font-weight: 600;
+}
+
+.step.done .step-label {
+    color: #52c41a;
+}
+
+.step-line {
+    flex: 1;
+    height: 2px;
+    background: #ddd;
+    margin: 0 15px;
+    max-width: 80px;
+}
+
+/* 区域 */
+.section {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.section-header {
+    margin-bottom: 20px;
+}
+
+.section-header h2 {
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+.section-header p {
+    color: #888;
+    font-size: 14px;
+}
+
+/* 上传区域 */
+.upload-area {
+    border: 2px dashed #ccc;
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.upload-area:hover {
+    border-color: #667eea;
+    background: #f8f9ff;
+}
+
+.upload-area.dragover {
+    border-color: #667eea;
+    background: #eef0ff;
+}
+
+.upload-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+}
+
+.upload-text {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.upload-hint {
+    font-size: 12px;
+    color: #aaa;
+    margin-bottom: 16px;
+}
+
+.upload-preview {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    background: #f0f9ff;
+    border-radius: 8px;
+    border: 1px solid #bae0ff;
+}
+
+.file-name {
+    font-weight: 600;
+}
+
+.file-count {
+    color: #666;
+    font-size: 14px;
+    margin-left: 12px;
+}
+
+/* 按钮 */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background: #667eea;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #5a6fd6;
+}
+
+.btn-outline {
+    background: white;
+    border: 1px solid #667eea;
+    color: #667eea;
+}
+
+.btn-outline:hover {
+    background: #f0f2ff;
+}
+
+.btn-success {
+    background: #52c41a;
+    color: white;
+}
+
+.btn-success:hover {
+    background: #45a817;
+}
+
+.btn-lg {
+    padding: 12px 32px;
+    font-size: 16px;
+}
+
+.btn-sm {
+    padding: 4px 12px;
+    font-size: 12px;
+}
+
+.actions {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* 检测器选择 */
+.detector-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+}
+
+.detector-card {
+    border: 2px solid #e8e8e8;
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.detector-card:hover {
+    border-color: #bae0ff;
+    background: #f8f9ff;
+}
+
+.detector-card.selected {
+    border-color: #667eea;
+    background: #f0f2ff;
+}
+
+.detector-icon {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.detector-name {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.detector-desc {
+    font-size: 12px;
+    color: #888;
+}
+
+/* 进度条 */
+.progress-container {
+    text-align: center;
+    padding: 40px;
+}
+
+.progress-bar-bg {
+    width: 100%;
+    max-width: 500px;
+    height: 24px;
+    background: #f0f0f0;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 0 auto 16px;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    border-radius: 12px;
+    transition: width 0.5s;
+}
+
+.progress-text {
+    color: #888;
+}
+
+/* 统计卡片 */
+.stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    background: #f9f9f9;
+}
+
+.stat-number {
+    font-size: 32px;
+    font-weight: bold;
+    display: block;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: #888;
+}
+
+.stat-total .stat-number { color: #333; }
+.stat-high .stat-number { color: #ff4d4f; }
+.stat-medium .stat-number { color: #faad14; }
+.stat-low .stat-number { color: #52c41a; }
+
+/* 违规类别统计 */
+.category-stats {
+    margin-bottom: 16px;
+    padding: 16px;
+    background: #fafafa;
+    border-radius: 8px;
+}
+
+.category-stats h3 {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #666;
+}
+
+.category-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.category-chip {
+    padding: 4px 12px;
+    border-radius: 12px;
+    background: #f0f0f0;
+    font-size: 12px;
+}
+
+/* 操作栏 */
+.result-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter-select {
+    padding: 6px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+/* 规则溯源 */
+.rule-index-info {
+    margin-bottom: 16px;
+}
+
+.rule-index-info details {
+    background: #f9f9f9;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.rule-index-info summary {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+#ruleIndexContent {
+    margin-top: 8px;
+    font-size: 12px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.rule-index-item {
+    padding: 6px 0;
+    border-bottom: 1px solid #eee;
+}
+
+/* 表格 */
+.table-container {
+    overflow-x: auto;
+}
+
+.result-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.result-table th {
+    background: #fafafa;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 2px solid #f0f0f0;
+    white-space: nowrap;
+}
+
+.result-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #f0f0f0;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.result-table tr:hover td {
+    background: #f8f9ff;
+}
+
+.risk-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.risk-badge.high {
+    background: #fff1f0;
+    color: #cf1322;
+}
+
+.risk-badge.medium {
+    background: #fffbe6;
+    color: #d48806;
+}
+
+.risk-badge.low {
+    background: #f6ffed;
+    color: #389e0d;
+}
+
+.product-thumb {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.empty-row {
+    text-align: center;
+    color: #999;
+    padding: 40px !important;
+}
+
+/* 分页 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+#pageInfo {
+    font-size: 13px;
+    color: #888;
+}
+
+/* 弹窗 */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 40px 20px;
+    overflow-y: auto;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid #f0f0f0;
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 1;
+}
+
+.modal-header h2 {
+    font-size: 18px;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #999;
+}
+
+.modal-close:hover {
+    color: #333;
+}
+
+.modal-body {
+    padding: 24px;
+}
+
+/* 详情内容 */
+.detail-section {
+    margin-bottom: 20px;
+}
+
+.detail-section h3 {
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.detail-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    font-size: 13px;
+}
+
+.detail-info-grid dt {
+    color: #888;
+}
+
+.detail-info-grid dd {
+    font-weight: 500;
+}
+
+.product-images {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 12px 0;
+}
+
+.product-images img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #eee;
+}
+
+.risk-item {
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    border-left: 4px solid;
+}
+
+.risk-item.risk-高 {
+    background: #fff2f0;
+    border-color: #ff4d4f;
+}
+
+.risk-item.risk-中 {
+    background: #fffbe6;
+    border-color: #faad14;
+}
+
+.risk-item.risk-低 {
+    background: #f6ffed;
+    border-color: #52c41a;
+}
+
+.risk-header {
+    margin-bottom: 6px;
+}
+
+.risk-meta {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 4px;
+}
+
+.risk-meta code {
+    background: #f0f0f0;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.risk-remedy {
+    font-size: 13px;
+    padding: 8px;
+    background: #f9f9f9;
+    border-radius: 4px;
+    margin-top: 4px;
+}
+
+.risk-rule-summary {
+    font-size: 12px;
+    color: #666;
+    margin-top: 4px;
+    padding: 6px 8px;
+    background: #f9f9f9;
+    border-radius: 4px;
+}
+
+.detail-loading {
+    text-align: center;
+    padding: 40px;
+    color: #888;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .app-container {
+        padding: 12px;
+    }
+
+    .section {
+        padding: 16px;
+    }
+
+    .detector-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stats-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .detail-info-grid {
+        grid-template-columns: 1fr;
+    }
+}
