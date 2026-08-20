@@ -1,0 +1,13 @@
+# 速卖通在线产品违规风险评级 — 运行时依赖
+# 安装：pip install -r requirements.txt
+# Python 3.8+（推荐 3.10+）
+
+flask>=3.0
+pandas>=2.0
+openpyxl>=3.1
+beautifulsoup4>=4.12
+lxml>=5.0
+requests>=2.31
+urllib3>=2.0
+
+# 打包（可选）：pip install pyinstaller
